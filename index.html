@@ -1,60 +1,427 @@
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>信息提示</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+	<meta http-equiv="Content-Type"
+    content="text/html; charset=UTF-8">
+	<!-- <title>25届生物地理分数查询</title> -->
+	<title>26届生物地理分数查询</title>
+	<script>
+	    var nowurl = document.location.toString();
+	    nowurl = nowurl.replace('https://','').replace('http://','').replace(window.location.host,'');
+	
+	    dwidth = '500';
+	    
+		//判断客户端设备，选择写入meta
+		function init_viewport() {
+			if (navigator.userAgent.indexOf('Android') != -1) {
+				var version = parseFloat(RegExp.$1);
+				if (version > 2.3) {
+					var width =
+						window.outerWidth == 0 ? window.screen.width : window.outerWidth;
+					var phoneScale = parseInt(width) / 500;
+					document.write(
+						'<meta name="viewport" content="width='+ dwidth +' minimum-scale = ' +
+						phoneScale +
+						', maximum-scale = ' +
+						phoneScale +
+						', target-densitydpi=device-dpi">'
+					);
+				} else {
+					document.write(
+						'<meta name="viewport" content="width='+ dwidth +' target-densitydpi=device-dpi, user-scalable=0">'
+					);
+				}
+			} else if (navigator.userAgent.indexOf('iPhone') != -1) {
+				var phoneScale = parseInt(window.screen.width) / 500;
+				document.write(
+					'<meta name="viewport" content="width='+ dwidth +' min-height=750, initial-scale=' +
+					phoneScale +
+					', maximum-scale=' +
+					phoneScale +
+					', user-scalable=0" /> '
+				); //0.75   0.82
+			} else {
+				document.write(
+					'<meta name="viewport" content="width='+ dwidth +' height=750, initial-scale=0.64" /> '
+				); //0.75  0.82
+			}
+		}
+		
+		init_viewport();
+	</script>
+	
+	<style>
+	html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    }
+
+	.iframe-div {
+		width: 100%;
+        height: 100%;
+		border: none;
+        margin: 0;
+        padding: 0;
+	}
+
+	.more-btn {
+		position: fixed;
+		cursor: pointer;
+		width: 42px;
+		height: 42px;
+		border: 2px solid white;
+		border-radius: 50%;
+		font-size: 1em;
+		line-height: 40px;
+		text-align: center;
+		z-index: 999;
+		top: 90px;
+		background-color: rgba(0, 0, 0, 0.3);
+		right: 20px;
+	}
+
+	.more-btn a {
+		cursor: pointer;
+		color: #fff;
+		text-decoration: none;
+	}
+
+	#img_music_wap {
+		cursor: pointer;
+		width: 42px;
+		height: 42px;
+		border: none;
+		border-radius: 50%;
+		font-size: 1em;
+		line-height: 40px;
+		text-align: center;
+		z-index: 999;
+		top: 30px;
+		right: 20px;
+	}
+
+	#div_music {
+		right: 30px;
+	}
+	
+	#div_btn_inner{ /*按钮部分内层，用于定位*/
+            color:white; 
+            text-shadow:1px 1px 1px #000;            
+            width: 500px;
+            padding-left: 430px;
         }
-        .container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 300px;
-            text-align: center;
+
+        .div_btn {
+            position: fixed;
+            cursor: pointer;  
+            width: 42px; 
+            height: 42px;
+            border: 2px solid white;
+            border-radius: 50%; 
+            font-size: 1em;
+            line-height: 40px;
+            text-align: center; 
+            z-index:999;
+        } 
+        #div_music {
+            border: none;
+            top: 30px; 
         }
-        .icon {
-            font-size: 50px;
-            color: #d9534f;
-            margin-bottom: 10px;
+        #div_record {
+            top: 100px;
+            background-color: rgba(0, 0, 0, 0.5);
         }
-        .message {
-            color: #333;
-            font-size: 16px;
-            margin-bottom: 20px;
+        #div_support{ 
+            top: 170px; 
+            background-color: rgba(0, 0, 0, 0.3);
+        }        
+
+        .div_music_tips{  
+            position: fixed;
+            top: 70px; 
+            z-index:999;
         }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #d9534f;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+        .div_record_tips{  
+            position: fixed;
+            top: 140px;
+            z-index:999;
         }
-        .button:hover {
-            background-color: #c9302c;
+
+        .div_btn_big {
+            position: fixed;
+            cursor: pointer; 
+            width: 52px; 
+            background-color: rgba(112,128,144, 0.6); 
+            border-radius: 5px; 
+            padding: 10px 0px;
+            font-size: 1.1em;
+            line-height: 1.3em;
+            text-align: center; 
+            z-index:999;
         }
+        #div_s_upload {
+            top: 360px;
+        }
+        #div_s_sound {
+            top: 440px;
+        }
+        #div_s_choose {
+            top: 520px;
+        }
+        #div_s_qa {
+            top: 600px;
+        }
+
+        @-webkit-keyframes music_play_rotate{
+            0%{
+                -webkit-transform:rotate(0deg);
+            }
+            100%{
+                -webkit-transform:rotate(360deg);
+            }
+        }
+        @-webkit-keyframes btn_rotate{ /*帮助按钮的动画*/
+            0%  {
+                -webkit-transform:rotate(0deg);
+            }
+            40% {
+                -webkit-transform:rotate(0deg);
+            }
+            50% {
+                -webkit-transform:rotate(30deg);
+            }
+            60% {
+                -webkit-transform:rotate(0deg);
+            }
+            70% {
+                -webkit-transform:rotate(30deg);
+            }
+            80% {
+                -webkit-transform:rotate(0deg);
+            }
+            100% {
+                -webkit-transform:rotate(0deg);
+            }
+        }
+        
+        #action-make{position: absolute; bottom: 150px; width: 100%;  font-size:24px;}
+        #action-make .btn1 { color: #fff; background-color: #2196f3; } 
+        
+        #action-make .btn-return { float: left; border-radius: 0 2rem 2rem 0; padding: 0.8rem 2.4rem 0.8rem 2.4rem; box-shadow: 0.2rem 0 0.2rem #888888; } 
+        #action-make .btn-make { float: right; border-radius: 2rem 0 0 2rem; padding: 0.8rem 1.5rem 0.8rem 1.5rem; box-shadow: 0 0.2rem 0.2rem #888888; }
+        
+        @keyframes text-flicker { 0% {opacity: 0} 49% {opacity: 0} 50% {opacity: 1} }.cur-end{animation: text-flicker 0.8s infinite;}#btn-hot { bottom: 12.5rem; right: 18px; background-color: #bf1e1e; color: #fff; font-weight: bold; }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="icon">FBI WARNING</div>
-        <div class="message">
-            年龄未满18岁者不适宜观看<br>仅限用于学习和研究目的；不得将上述内容用于商业或者非法用途，否则，一切后果请用户自负。<br>点击确定查看内容！
-        </div>
-        <div style="text-align: right;">
-        <a href="https://zh.wikipedia.org/wiki/%E5%8D%81%E5%85%AB%E7%A6%81" class="button">这是什么？</a>
-        <a href="https://xn--n9su75h.9yaomh.cc/%E5%AD%B8%E8%A1%93.html" class="button">确定</a>
-    </div>
+	<iframe id="myframe" class="iframe-div" width="100%" src=""></iframe>
+
+    	<!-- <div id="more-btn" class="div_btn more-btn" style="bottom: 50px;top:auto" id="morte-bt" onclick="var href = $('#moreLink').data('href');window.location.href=href;"> -->
+		<!-- <a id="moreLink" data-href="https://www.yuque.com/u60743735/gdwhgo/bfei3ycx3knyh33z"><span>更多</span></a> -->
+	<!-- </div> -->
+<!--  -->
+	<!-- <div id="make-btn" class="div_btn more-btn" style="bottom: 110px;top:auto" onclick="var href = $('#makeLink').data('href');window.location.href=href;"> -->
+	    <!-- <a  id="makeLink" data-href="weixin://dl/business/?appid=wxd461833fb16f0351&path=pages/index/index&query=channel">制作</a> -->
+    <!-- </div> -->
+      
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    var id = "2703462";
+    var data_type = "1";
+    var vip_type = "0";
+    var temp_id = "18";
+    var views = "3897269";
+    var dataInfo = {"id":2703462,"nid":"brd6058","title":"25\u5c4a\u751f\u7269\u5730\u7406\u5206\u6570\u67e5\u8be2","ftitle":"\u8bf7\u8003\u751f\u6838\u5bf9\u4fe1\u606f\uff0c\u4e0d\u51c6\u900f\u9732\u7ed9\u5176\u4ed6\u4eba","ctitle":"","temp_id":18,"cover_url":"https:\/\/web-img.20it.cn\/static\/images\/huaban\/d7dd10732a7c0a7c579ce9e8110f8ed9.webp","background_url":"","opacity":1,"music_url":"https:\/\/sf6-cdn-tos.douyinstatic.com\/obj\/ies-music\/7326764171861314341.mp3","data_type":1,"vip":0,"views":3897269,"views_update":false,"hide_btn":false};
+    dataInfo.is_mobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent);
+    
+	var BASE_URL = 'https://m31.360ta.cn';
+	BASE_URL = BASE_URL + '/brd6058';
+	var nowurl = document.location.toString();
+	nowurl = nowurl.replace('https://','').replace('http://','').replace(window.location.host,'');
+    //BASE_URL = BASE_URL + nowurl;
+        var dataRes = {"id":2703462,"appid":0,"domain_id":1,"nid":"brd6058","openid":"o0H-y5c44g0zxOGFnHlxWpLTKVpQ","template_id":18,"category_id":null,"url":"http:\/\/2025k.cn\/brd6058","title":"25\u5c4a\u751f\u7269\u5730\u7406\u5206\u6570\u67e5\u8be2","ftitle":"\u8bf7\u8003\u751f\u6838\u5bf9\u4fe1\u606f\uff0c\u4e0d\u51c6\u900f\u9732\u7ed9\u5176\u4ed6\u4eba","content":"\u88ab\u6349\u5f04\u5230\u4e86\u5427\u563b\u563b\ud83e\udd2a\r\n\u5feb\u53d1\u7ed9\u4f60\u4eec\u7684\u5927\u51a4\u79cd\u670b\u53cb\u5427\uff01\r\n\ud83c\udf86\u63a5\u9f99\u54c8\uff01\u53d1\u7ed9\u4f60\u6700\u597d\u768410\u4e2a\u670b\u53cb\uff0c\r\n\u4e0d\u8bb8\u5728\u4f60\u8fd9\u91cc\u65ad\u4e86\u3002\u4eca\u5929\u5fc5\u987b\u53d1\u5b8c\ud83c\udf89\uff0c\u4e0d\u8bb8\u5077\u61d2\ud83d\ude1c\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\u4f20\u90010\u4eba \u542f\u52a8\u7b2c\u4e00\u4eba\u683c\r\n\u4f20\u90011\u4eba \u542f\u52a8\u7b2c\u4e8c\u4eba\u683c\r\n\u4f20\u90015\u4eba \u542f\u52a8\u7b2c\u4e09\u4eba\u683c\r\n\u4f20\u900115\u4eba \u542f\u52a8\u7b2c\u56db\u4eba\u683c\r\n\u4f20\u900120\u4eba \u542f\u52a8\u7b2c\u4e94\u4eba\u683c","cover_url":"https:\/\/web-img.20it.cn\/static\/images\/huaban\/d7dd10732a7c0a7c579ce9e8110f8ed9.webp","background_url":"","music_url":"https:\/\/sf6-cdn-tos.douyinstatic.com\/obj\/ies-music\/7326764171861314341.mp3","option":null,"score":0,"views":3897269,"status":0,"vip_type":0,"opacity":0,"note":"","is_demo":1,"ip":"110.244.131.112","from_nid":"ys","create_time":"2024-06-29 18:21:48","update_time":"2025-07-03 12:18:36","template":{"id":18,"name":"\u6e38\u620f\u542f\u52a8","path":"template\/gamestart","status":1,"note":"","sort":205,"create_time":"2024-01-29 12:02:55","update_time":"2024-01-29 12:09:17"}};
+    dataRes['data_type'] = data_type;
+    console.log("dataRes",dataRes);
+    localStorage.setItem('templateDate', JSON.stringify(dataRes));
+    <!-- BASE_URL = "/template2/gamestart/index.html"; -->
+        
+    
+	const frameDom = document.getElementById('myframe');
+	var num = location.pathname.replace(/\//g, '');
+	frameDom.style.height = '100vh';
+	
+	document.getElementById('myframe').src = BASE_URL;
+	$('html').css('background','#fff');
+	var dtitle=document.title;    
+	
+	/*
+	var mp_eg = 'weixin://dl/business/?appid=wxd461833fb16f0351&path=pages/index/index&query=channel';var mp_ios = 'weixin://dl/business/?appid=wxd461833fb16f0351&path=pages/index/index&query=channel';
+	eval(function(e,f,a,d,c,g){c=function(b){return(b<f?"":c(parseInt(b/f)))+(35<(b%=f)?String.fromCharCode(b+29):b.toString(36))};if(!"".replace(/^/,String)){for(;a--;)g[c(a)]=d[a]||c(a);d=[function(b){return g[b]}];c=function(){return"\\w+"};a=1}for(;a--;)d[a]&&(e=e.replace(new RegExp("\\b"+c(a)+"\\b","g"),d[a]));return e}('4 8={11:0,j:0,k:0,l:0,m:0,n:0,15:0,o:0,p:0,q:0,r:0,s:0,t:0,9:0,16:0,u:0,v:0,w:0,x:0,};y.z(e,8);4 b=c.f("A");4 g=c.f("B");d(C.D("E\u8003")>-1){g.6("2-3","F://G.H.I/J-7")}d(K 8[e]!=="L"){b.6("2-3",M)}N{d(/O|P|Q/i.R(S.T)){b.6("2-3",U)}}4 h=c.V(".W a");h.X(Y(a){a.6("2-3",a.Z("2-3")+"#"+10 12().13().14().17(-11,5),)});',
+62,70,"  data href var  setAttribute  eg_temp_ids   makeBtn document if temp_id getElementById moreBtn aTags  41 40 21 30 31 22 18 23 26 25 27 19 50 56 57 console log makeLink moreLink dtitle indexOf 2222 http m1 360ka cn cate typeof undefined mp_eg else iPhone iPad iPod test navigator userAgent mp_ios querySelectorAll div_btn forEach function getAttribute new  Date getTime toString   substr".split(" "),0,{}));
+    */
+    
+    
+    
+</script>
+
+<script>
+var nowurl = window.location.href;
+var nowref = document.referrer;
+
+var ua = navigator.userAgent.toLowerCase(); 
+if (ua.match(/MicroMessenger/i) == "micromessenger" && ua.indexOf("miniprogram") < 1 && nowurl.indexOf("wan2") < 1 && nowurl.indexOf("cate") < 1 && nowurl.indexOf("new") < 1 && nowurl.indexOf("mp") < 1 && nowurl.indexOf("zkd") < 1){ 
+	document.writeln("<script src=\"https://web-file.20it.cn/static/js/mp-jump.js?v2116\"><\/script>");
+}
+
+var _hmt = _hmt || [];
+(function() {
+    
+	var hm = document.createElement("script");
+	var tid = "8d357a63b0968eb344c1a4e10453858b";
+	if(nowurl.indexOf('.360t') > -1){
+		tid = "8d357a63b0968eb344c1a4e10453858b";
+	}else if(nowurl.indexOf('360t')> -1){
+		tid = "5b23634820a9d1c87b1be867312a522d";
+	}else if(nowurl.indexOf('m2.360k')> -1 || nowurl.indexOf('m3.360k')> -1){
+		tid = "27f2ce04de556d7e9823742bff757bf8";
+	}else if(nowurl.indexOf('360k')> -1 || nowurl.indexOf('.wan7')> -1 || nowurl.indexOf('m1.360k')> -1){
+		tid = "13751dfc6487683f73a8594e67fa2ff2";
+	}else if(nowurl.indexOf('new.360a')> -1){
+		tid = "9268d9128fcebf1a5da96d7cb2a8dac4";
+	}else if(nowurl.indexOf('.360a')> -1){
+		tid = "b1eaf254f3b3f88e2581e62387a3a244";
+	}else if(nowurl.indexOf('4t.') > -1 || nowurl.indexOf('w5.') > -1 || nowurl.indexOf('92.') > -1){
+		tid = "158369ef91661a5a4ec934bd36cc871b";//idex
+	}else if(nowurl.indexOf('zk.kt')> -1){
+		tid = "a687b0d7937e526191f262045eefed35";//
+	}else if(nowurl.indexOf('.2025')> -1){
+	    tid = "b1eaf254f3b3f88e2581e62387a3a244";
+	}else if(nowurl.indexOf('web-36')> -1){
+		tid = "e2c5f61aa6d237cbe2cffd716efd19e5";
+	}else if(nowurl.indexOf('wan77')> -1){
+		tid = "0fb0feca57148be26c24988228e60307";
+	}else if(nowurl.indexOf('k.061')> -1){
+		tid = "c314395e62fb55e30828e0ea8cca8b3a";
+	}
+	
+	hm.src = "https://hm.baidu.com/hm.js?" + tid;
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+
+
+
+
+
+
+window.onpageshow = function (){
+	sessionStorage.getItem("jumpOut") && a();
+};
+
+var apiArr = [
+	"https://ai8.top/api/getWeUrl?tid=1",
+	"https://api.jianyuekeji.cn/api/getDomain/3286_7bwv1yukxsbx19yg",
+	"https://api.jianyuekeji.cn/api/getDomain/5133_jdvue9vejevmeusg",
+	"https://api.jianyuekeji.cn/api/getDomain/5134_4kwyn83uebbffavk",
+	"https://adx.tuia.cn/bid/tuia",
+	"https://ai8.top/api/getWeUrl?tid=2",
+	"https://ai8.top/api/getWeUrl?tid=3",
+	"https://ai8.top/api/getWeUrl?tid=4",
+	"https://api.hbty002.cn/task/getDomain?hh=zz100&cs=2&pp=1",//8 万ju
+	"https://api.hbty002.cn/task/getDomain?hh=zz100&cs=2&pp=1",//9 liumao
+	"https://api.hbty002.cn/task/getDomain?hh=bx28&cs=2&pp=1", //10 wuqion
+	"http://www.senyikeji.net/api/domain?ch=4001",//10
+];
+
+var timeid = new Date().getTime().toString().substr(-5);
+var durl = "";
+var href = location.href;
+var apiUrl = "";
+
+if(href.indexOf(".best" ) > -1){
+    var rand_n = Math.floor(Math.random() * 100);
+    if(rand_n <= 50){
+        apiUrl = apiArr[2];
+    }else{
+        apiUrl = apiArr[10];
+    }
+}else{
+    <!-- durl = "https://mp.weixin.qq.com/s/Setwr-RCD4h85wYy5ecSsA"; -->
+}
+
+<!-- durl = "weixin://dl/business/?appid=wxd461833fb16f0351&path=pages/index/index&query=channel"; -->
+
+if(!durl){
+	window.fetch(apiUrl).then(function (res){
+		return res.json();
+	}).then(function (data){
+		durl = data.url ? data.url : data.data.url;
+		
+	});
+}
+
+
+function a(){
+	if (durl){
+		location.href = durl;
+	}
+}
+
+function ntzgo2(){
+	history.pushState(history.length + 1, "message", window.location.href.split("#")[0] + "#" + new Date().getTime(), );
+	if (navigator.userAgent.indexOf("Android") != -1){
+		if (typeof tbsJs != "undefined"){
+			tbsJs.onReady("{useCachedApi : 'true'}",
+			function(e){});
+			window.onhashchange = function(){
+				window.history.pushState("forward", null, "#");
+				window.history.forward(1);
+				if (durl){
+            		location.href = durl;
+            	}
+			}
+		}else{
+			var pop = 0;
+			window.onhashchange = function(event){
+				pop++;
+				if (pop >= 3){
+					if (durl){
+                		location.href = durl;
+                	}
+				}else{
+					history.go(1);
+				}
+			};
+			history.go(-1);
+		}
+	}else{
+		window.onhashchange = function(){
+			if (durl){
+        		location.href = durl;
+        	}
+		}
+	}
+}
+
+window.addEventListener('message', function(event) {
+    // 你可以添加源验证，例如：if (event.origin === 'https://your-iframe-origin')
+    if (event.data && event.data.event === 'iframeClicked') {
+        console.log('Iframe被点击了11');
+        if (typeof ntzgo2 === 'function') {ntzgo2();}
+    }
+});
+
+var newTempIds = [61,62,63,64,65,66,67,68,69];
+
+if(newTempIds.includes(dataInfo.temp_id)){
+    console.log('阅读444');
+    if (typeof ntzgo2 === 'function') {ntzgo2();}
+}
+</script>
+
 </body>
 </html>
